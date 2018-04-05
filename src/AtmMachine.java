@@ -11,15 +11,14 @@ import java.util.Scanner;
 public class AtmMachine{
  
     private static Scanner in; 
-    private static double balance = 150000; // initial balance to 150000 for everyone
-    private static int quit;
-    private static int anotherTransaction;
-    static double withdrawn = 0;
-    static double maxwithdraw = 50000;
-    static double deposited = 0;
-    static double maxdeposit = 150000;
-    static int depositfrequency=0;
-    static int withdrawfrequency=0;
+    private static double balance = 150000; //Initial balance for everyone
+    private static int anotherTransaction; 
+    static double withdrawn = 0; //Default value for the withdrawn amount
+    static double maxwithdraw = 50000; //Marks the maximum withdrawal amount
+    static double deposited = 0; //Default value for the deposited amount
+    static double maxdeposit = 150000; //Marks the maximum withdrawal amount
+    static int depositfrequency=0; //Initial deposit Frequency
+    static int withdrawfrequency=0; //Initial withdrawal Frequency
  
     public static void main(String args[]){
         in = new Scanner(System.in);
@@ -30,10 +29,11 @@ public class AtmMachine{
  
     private static void transaction(){
         // here is where most of work is
+
+    	int choice; 
  
-        int choice; 
- 
-        System.out.println("Please select an option"); 
+        //Main Menu
+    	System.out.println("Please select an option"); 
         System.out.println("1. Balance");
         System.out.println("2. Deposit");
         System.out.println("3. Withdrawal");
@@ -44,48 +44,45 @@ public class AtmMachine{
         switch(choice){
             case 1:
             	 // this option is to check balance 
-                System.out.println("Available balance is "+balance+"\n");
-                anotherTransaction(); 
+                System.out.println("Available balance is "+ String.format("%.2f",balance)+"\n");
+                anotherTransaction();  //Prompts user whether to quit or continue with other transactions
             break; 
  
             case 2:
                 // option number 2 is depositing 
-                String rawdeposit; 
-                double deposit = 0; 
+                String rawdeposit; //stores the user input in case of text
+                double deposit = 0; //stores the user input in case of numbers
                 System.out.println("Enter deposit amount and press enter (or type Menu and press enter to go back to Main Menu): "); 
                 rawdeposit = in.next();
                 
                 if(rawdeposit.equals("menu")) {
                 	transaction(); // call transaction method
                 } else {
-                	deposit = Double.parseDouble(rawdeposit);
+                	deposit = Double.parseDouble(rawdeposit); //converting user input from text to numbers
                 }
                 
                 if(deposit <1) { //check allowed transaction deposit amount 
          		  
          	      System.out.println("Deposit amount is less than the Minimum allowed amount of Ksh 1.");
                 	   	} 
-         			   else if(deposit <= 40000) { //check allowed transaction deposit amount
-         		  if (maxdeposit >= deposit) {
-         			  if (depositfrequency <=3) {
+         			   else if(deposit <= 40000) { //check allowed amount per transaction 
+         		  if (maxdeposit >= deposit) { //check maximum allowed deposit amount per day 
+         			  if (depositfrequency <=3) { //check daily allowed deposit frequency
            	      balance += deposit;   // update balance
            	      deposited += deposit;
            	   maxdeposit -= deposit;
-           	      depositfrequency++;
-           	      System.out.println("You have deposited Kshs"+ deposit);
-           	    System.out.println("Your new balance is Kshs: " + balance);
-           	    System.out.println("Total Deposited amount for the day is Kshs: " + deposited);
-           	 System.out.println("Deposit Remaining for the day is Kshs: " + maxdeposit);
-           	    System.out.println("Deposit Frequency: " + depositfrequency);
-           	   	           	   	} else { //check daily deposit amount
+           	      depositfrequency++; //increasing the deposit frequency
+           	      System.out.println("You have deposited Kshs "+  String.format("%.2f",deposit));
+           	    System.out.println("Your new balance is Kshs " +  String.format("%.2f",balance));
+          	   	           	   	} else { //check daily deposit frequency
          			  
            	   	         System.out.println("Daily Deposit Frequency Exceeded ");
            	                }
-             	            	   	    	}else {
+             	            	   	    	}else { //check maximum allowed deposit amount per day 
              	            	   	  System.out.println("Daily Deposit Amount Exceeded ");
              	            	   	    	}
          				    				  
-          	   			      	  } else { //check allowed transaction deposit amount
+          	   			      	  } else { //check allowed amount per transaction
          	          	   System.out.println("Kshs " + deposit + " Exceeds the allowed deposit limit per transaction");
          	          	       	   	    	}
                          anotherTransaction();
@@ -101,7 +98,7 @@ public class AtmMachine{
                 if(rawwithdraw.equals("menu")) {
                 	transaction(); // call transaction method
                 } else {
-                	amount = Double.parseDouble(rawwithdraw);
+                	amount = Double.parseDouble(rawwithdraw); //converting user input from text to numbers
                 }
                 
                 if(amount <1) { //check allowed transaction withdrawal amount 
@@ -115,12 +112,9 @@ public class AtmMachine{
            	      withdrawn += amount;
            	   maxwithdraw -= amount;
            	      withdrawfrequency++;
-           	      System.out.println("You have withdrawn Kshs"+ amount);
-           	    System.out.println("Your new balance is Kshs: " + balance);
-           	    System.out.println("Total Withdrawn amount for the day is Kshs: " + withdrawn);
-           	 System.out.println("Withdrawal Amount Remaining for the day is Kshs: " + maxwithdraw);
-           	    System.out.println("Withdrawal Frequency: " + withdrawfrequency);
-           	   	           	   	} else { //check daily withdrawal amount
+           	      System.out.println("You have withdrawn Kshs"+  String.format("%.2f",amount));
+           	    System.out.println("Your new balance is Kshs: " +  String.format("%.2f",balance));
+          	   	           	   	} else { //check daily withdrawal amount
          			  
            	   	         System.out.println("Daily Withdrawal Frequency Exceeded ");
            	                }
@@ -142,7 +136,7 @@ public class AtmMachine{
             	transaction();
             	}
             	if (quit == 1) {//quit
-            	System.out.println("Thanks for choosing us. Good Bye.");
+            	System.out.println("Thank you for using our services.");
                       }
              break;
             default:
@@ -154,12 +148,12 @@ public class AtmMachine{
     } 
  
     private static void anotherTransaction(){
-        System.out.println("\n Do you want another transaction?\nPress 1 for another transaction\n2 To exit");
+        System.out.println("\n Do you want another transaction?\n 1. Another transaction\n2. Exit");
         anotherTransaction = in.nextInt();
         if(anotherTransaction == 1){
             transaction(); // call transaction method
         } else if(anotherTransaction == 2){
-            System.out.println("Thanks for choosing us. Good Bye!");
+            System.out.println("Thank you for using our services");
         } else {
             System.out.println("Invalid choice\n\n");
             anotherTransaction();
