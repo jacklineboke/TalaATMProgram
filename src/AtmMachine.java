@@ -1,11 +1,17 @@
-package demoatm;
+/**
+ * 
+ */
 
+/**
+ * @author jackline
+ *
+ */
 import java.util.Scanner;
  
 public class AtmMachine{
  
     private static Scanner in; 
-    private static float balance = 150000; // initial balance to 150000 for everyone
+    private static double balance = 150000; // initial balance to 150000 for everyone
     private static int quit;
     private static int anotherTransaction;
     static double withdrawn = 0;
@@ -44,10 +50,17 @@ public class AtmMachine{
  
             case 2:
                 // option number 2 is depositing 
-                float deposit; 
+                String rawdeposit; 
+                double deposit = 0; 
                 System.out.println("Enter deposit amount and press enter (or type Menu and press enter to go back to Main Menu): "); 
-                deposit = in.nextFloat();
-                               
+                rawdeposit = in.next();
+                
+                if(rawdeposit.equals("menu")) {
+                	transaction(); // call transaction method
+                } else {
+                	deposit = Double.parseDouble(rawdeposit);
+                }
+                
                 if(deposit <1) { //check allowed transaction deposit amount 
          		  
          	      System.out.println("Deposit amount is less than the Minimum allowed amount of Ksh 1.");
@@ -79,28 +92,48 @@ public class AtmMachine{
             break; 
  
             case 3:
-               float amount; 
-                System.out.println("Enter amount and press enter (or type menu and press enter to go back to main menu): "); 
-                amount = in.nextFloat();
-                if(amount > balance || amount == 0){
-                    System.out.println("You have insufficient funds\n\n"); 
-                    anotherTransaction(); // ask if they want another transaction
-                } else if(amount <= balance && amount <=20000) {
-                    // they have some cash
-                    // update balance 
-                    balance = balance - amount; 
-                    System.out.println("You have withdrawn "+amount+" and your new balance is "+balance+"\n");
-                    
-                    anotherTransaction(); 
+                // option number 3 is withdrawing 
+                String rawwithdraw; 
+                double amount = 0; 
+                System.out.println("Enter withdrawal amount and press enter (or type Menu and press enter to go back to Main Menu): "); 
+                rawwithdraw = in.next();
+                
+                if(rawwithdraw.equals("menu")) {
+                	transaction(); // call transaction method
+                } else {
+                	amount = Double.parseDouble(rawwithdraw);
                 }
-                else {
-                    // update balance 
-                    balance +=0; 
-                    System.out.println("Invalid "+balance+"\n");
-                    
-                    anotherTransaction(); 
-                }
+                
+                if(amount <1) { //check allowed transaction withdrawal amount 
+         		  
+         	      System.out.println("Withdrawal amount is less than the Minimum allowed amount of Ksh 1.");
+                	   	} 
+         			   else if(amount <= 20000) { //check allowed transaction withdrawal amount
+         		  if (maxwithdraw >= amount) {
+         			  if (withdrawfrequency <=2) {
+           	      balance -= amount;   // update balance
+           	      withdrawn += amount;
+           	   maxwithdraw -= amount;
+           	      withdrawfrequency++;
+           	      System.out.println("You have withdrawn Kshs"+ amount);
+           	    System.out.println("Your new balance is Kshs: " + balance);
+           	    System.out.println("Total Withdrawn amount for the day is Kshs: " + withdrawn);
+           	 System.out.println("Withdrawal Amount Remaining for the day is Kshs: " + maxwithdraw);
+           	    System.out.println("Withdrawal Frequency: " + withdrawfrequency);
+           	   	           	   	} else { //check daily withdrawal amount
+         			  
+           	   	         System.out.println("Daily Withdrawal Frequency Exceeded ");
+           	                }
+             	            	   	    	}else {
+             	            	   	  System.out.println("Daily Withdrawal Amount Exceeded ");
+             	            	   	    	}
+         				    				  
+          	   			      	  } else { //check allowed transaction withdrawal amount
+         	          	   System.out.println("Kshs " + amount + " Exceeds the allowed withdrawal limit per transaction");
+         	          	       	   	    	}
+                         anotherTransaction();
             break;
+            
             case 4:
                 int quit; 
                 System.out.println("Are you sure you want to quit? \n1. Yes\n2. No\n");
