@@ -106,8 +106,6 @@ public static double balances() {
 		return balance;
 	            	   	    	}
              
-			
-
 public static double depositing(String rawdeposit) {
 	double deposit = 0; //stores the user input in case of numbers
 	if(rawdeposit.equals("menu")) {
