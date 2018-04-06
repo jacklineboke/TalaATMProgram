@@ -15,7 +15,7 @@ Setting up project in eclipse steps:
 1. In your eclipse, click on "File"
 2. Click on "Open Projects from File System"
 3. Browse to the folder where you saved the repo from the above (Source Code Download), by clicking on "Directory" button.
-4. Click on finish once the you have the repo path corectly.
+4. Click on finish once the you have the repo path correctly.
 
 Running the project.
 1. In the eclipse projects window, click on run.
@@ -28,6 +28,7 @@ Checking unit tests for code coverage
 5. Click on Coverage to see the coverage in percentage (%).
 
 NOTE
-The file name "AtmMachine,java" contains the ATM Program while the file name "unittests,java" contains some of the unit tests that have been automated using EclEmma
+The file name "AtmMachine,java" contains the ATM Program while the file name "unittests,java" contains the Junit tests.
+The coverage analysis is done using EclEmma Plugin for eclipse.
 
 
