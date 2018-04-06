@@ -5,11 +5,19 @@ import org.junit.Test;
 public class unittests {
 	
 	@Test
+	public void bal() {
+		double output = AtmMachine.balances();
+		assertEquals(150000, output, 1);
+		
+	}
+	
+	@Test
 	public void deposit() {
 		double output = AtmMachine.depositing("40000");
 		assertEquals(190000, output, 1);
 		
 	}
+	
 	@Test
 	public void depositless() {
 		double output = AtmMachine.depositing("0");
@@ -29,17 +37,18 @@ public class unittests {
 		
 	}
 	
-	@SuppressWarnings("deprecation")
-	@Test
-	public void withdrawalless() {
-		double output = AtmMachine.withdrawing("0");
-		assertEquals("Withdrawal amount is less than the Minimum allowed amount of Ksh 1.", output, 1);
-		
-	}
 	@Test
 	public void withdrawalmore() {
-		double output = AtmMachine.withdrawing("40000");
+		double output = AtmMachine.withdrawing("60000");
 		assertEquals(170000, output, 1);
 		
 	}
+	
+	@Test
+	public void withdrawalless() {
+		double output = AtmMachine.withdrawing("0");
+		assertEquals(170000, output, 1);
+		
+	}
+
 }

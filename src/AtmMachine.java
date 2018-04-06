@@ -45,7 +45,7 @@ public class AtmMachine{
             case 1:
             	 // this option is to check balance 
                 System.out.println("Available balance is "+ String.format("%.2f",balance)+"\n");
-                anotherTransaction();  //Prompts user whether to quit or continue with other transactions
+                anotherTransaction();  //Prompts user whether to quit or continue with other transactions 
             break; 
  
             case 2:
@@ -101,6 +101,12 @@ public static void anotherTransaction(){
             anotherTransaction();
         }
     }
+
+public static double balances() {
+		return balance;
+	            	   	    	}
+             
+			
 
 public static double depositing(String rawdeposit) {
 	double deposit = 0; //stores the user input in case of numbers
