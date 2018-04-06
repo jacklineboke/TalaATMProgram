@@ -25,7 +25,7 @@ Checking unit tests for code coverage
 2. If you have Tortoisegit installed, go to the option "Coverage As"
 3. Select "2 JUnit Test"
 4. Let the code covarage run and the results will be displayed
-5. Click on Coverage to see the coverage in percentage (%)
+5. Click on Coverage to see the coverage in percentage (%).
 
 NOTE
 The file name "AtmMachine,java" contains the ATM Program while the file name "unittests,java" contains some of the unit tests that have been automated using EclEmma
