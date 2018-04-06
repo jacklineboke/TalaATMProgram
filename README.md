@@ -8,7 +8,7 @@ Assumptions:
 Source Code Download:
 1. Select a folder on your machine where you can store the code repo.
 2. Right click in that folder and select "Git Clone" from the  context menu.
-3. From the resulting wizard, put the following git repo link.https://github.com/jacklineboke/TalaATMProgram 
+3. From the resulting wizard, put the following git repo link: https://github.com/jacklineboke/TalaATMProgram 
 4. Click Okay, and wait for the download to finish.
 
 Setting up project in eclipse steps:
@@ -19,6 +19,13 @@ Setting up project in eclipse steps:
 
 Running the project.
 1. In the eclipse projects window, click on run.
+
+Checking unit tests for code coverage
+1. In the eclipse projects window, right click on the package for the ATM Program.
+2. If you have Tortoisegit installed, go to the option "Coverage As"
+3. Select "2 JUnit Test"
+4. Let the code covarage run and the results will be displayed
+5. Click on Coverage to see the coverage in percentage (%)
 
 NOTE
 The file name "AtmMachine,java" contains the ATM Program while the file name "unittests,java" contains some of the unit tests that have been automated using EclEmma
