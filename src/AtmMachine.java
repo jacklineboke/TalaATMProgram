@@ -27,7 +27,7 @@ public class AtmMachine{
         transaction();
     }
  
-    private static void transaction(){
+    public static void transaction(){
         // here is where most of work is
 
     	int choice; 
@@ -51,81 +51,23 @@ public class AtmMachine{
             case 2:
                 // option number 2 is depositing 
                 String rawdeposit; //stores the user input in case of text
-                double deposit = 0; //stores the user input in case of numbers
                 System.out.println("Enter deposit amount and press enter (or type Menu and press enter to go back to Main Menu): "); 
                 rawdeposit = in.next();
+                depositing(rawdeposit);
+                System.out.println("Account balance is Kshs " +  String.format("%.2f",balance));
+                anotherTransaction();
                 
-                if(rawdeposit.equals("menu")) {
-                	transaction(); // call transaction method
-                } else {
-                	deposit = Double.parseDouble(rawdeposit); //converting user input from text to numbers
-                }
-                
-                if(deposit <1) { //check allowed transaction deposit amount 
-         		  
-         	      System.out.println("Deposit amount is less than the Minimum allowed amount of Ksh 1.");
-                	   	} 
-         			   else if(deposit <= 40000) { //check allowed amount per transaction 
-         		  if (maxdeposit >= deposit) { //check maximum allowed deposit amount per day 
-         			  if (depositfrequency <=3) { //check daily allowed deposit frequency
-           	      balance += deposit;   // update balance
-           	      deposited += deposit;
-           	   maxdeposit -= deposit;
-           	      depositfrequency++; //increasing the deposit frequency
-           	      System.out.println("You have deposited Kshs "+  String.format("%.2f",deposit));
-           	    System.out.println("Your new balance is Kshs " +  String.format("%.2f",balance));
-          	   	           	   	} else { //check daily deposit frequency
-         			  
-           	   	         System.out.println("Daily Deposit Frequency Exceeded ");
-           	                }
-             	            	   	    	}else { //check maximum allowed deposit amount per day 
-             	            	   	  System.out.println("Daily Deposit Amount Exceeded ");
-             	            	   	    	}
-         				    				  
-          	   			      	  } else { //check allowed amount per transaction
-         	          	   System.out.println("Kshs " + deposit + " Exceeds the allowed deposit limit per transaction");
-         	          	       	   	    	}
-                         anotherTransaction();
             break; 
  
             case 3:
                 // option number 3 is withdrawing 
-                String rawwithdraw; 
-                double amount = 0; 
+                String rawwithdraw;  
                 System.out.println("Enter withdrawal amount and press enter (or type Menu and press enter to go back to Main Menu): "); 
                 rawwithdraw = in.next();
+                withdrawing(rawwithdraw);
+                System.out.println("Account balance is Kshs: " +  String.format("%.2f",balance));
+                anotherTransaction();
                 
-                if(rawwithdraw.equals("menu")) {
-                	transaction(); // call transaction method
-                } else {
-                	amount = Double.parseDouble(rawwithdraw); //converting user input from text to numbers
-                }
-                
-                if(amount <1) { //check allowed transaction withdrawal amount 
-         		  
-         	      System.out.println("Withdrawal amount is less than the Minimum allowed amount of Ksh 1.");
-                	   	} 
-         			   else if(amount <= 20000) { //check allowed transaction withdrawal amount
-         		  if (maxwithdraw >= amount) {
-         			  if (withdrawfrequency <=2) {
-           	      balance -= amount;   // update balance
-           	      withdrawn += amount;
-           	   maxwithdraw -= amount;
-           	      withdrawfrequency++;
-           	      System.out.println("You have withdrawn Kshs"+  String.format("%.2f",amount));
-           	    System.out.println("Your new balance is Kshs: " +  String.format("%.2f",balance));
-          	   	           	   	} else { //check daily withdrawal amount
-         			  
-           	   	         System.out.println("Daily Withdrawal Frequency Exceeded ");
-           	                }
-             	            	   	    	}else {
-             	            	   	  System.out.println("Daily Withdrawal Amount Exceeded ");
-             	            	   	    	}
-         				    				  
-          	   			      	  } else { //check allowed transaction withdrawal amount
-         	          	   System.out.println("Kshs " + amount + " Exceeds the allowed withdrawal limit per transaction");
-         	          	       	   	    	}
-                         anotherTransaction();
             break;
             
             case 4:
@@ -147,7 +89,7 @@ public class AtmMachine{
  
     } 
  
-    private static void anotherTransaction(){
+public static void anotherTransaction(){
         System.out.println("\n Do you want another transaction?\n 1. Another transaction\n2. Exit");
         anotherTransaction = in.nextInt();
         if(anotherTransaction == 1){
@@ -159,4 +101,75 @@ public class AtmMachine{
             anotherTransaction();
         }
     }
+
+public static double depositing(String rawdeposit) {
+	double deposit = 0; //stores the user input in case of numbers
+	if(rawdeposit.equals("menu")) {
+    	transaction(); // call transaction method
+    } else {
+    	deposit = Double.parseDouble(rawdeposit); //converting user input from text to numbers
+    }
+    
+    if(deposit <1) { //check allowed transaction deposit amount 
+		  
+	      System.out.println("Deposit amount is less than the Minimum allowed amount of Ksh 1.");
+    	   	} 
+			   else if(deposit <= 40000) { //check allowed amount per transaction 
+		  if (maxdeposit >= deposit) { //check maximum allowed deposit amount per day 
+			  if (depositfrequency <=3) { //check daily allowed deposit frequency
+	      balance += deposit;   // update balance
+	      deposited += deposit;
+	   maxdeposit -= deposit;
+	      depositfrequency++; //increasing the deposit frequency
+	   	           	   	} else { //check daily deposit frequency
+			  
+	   	         System.out.println("Daily Deposit Frequency Exceeded ");
+	                }
+ 	            	   	    	}else { //check maximum allowed deposit amount per day 
+ 	            	   	  System.out.println("Daily Deposit Amount Exceeded ");
+ 	            	   	    	}
+				    				  
+	   			      	  } else { //check allowed amount per transaction
+	          	   System.out.println("Kshs " + deposit + " Exceeds the allowed deposit limit per transaction");
+	            	   	    	}
+             
+			return balance;
+	
+}
+    
+ public static double withdrawing(String rawwithdraw) { 
+    
+	 double amount = 0; 
+    
+    if(rawwithdraw.equals("menu")) {
+    	transaction(); // call transaction method
+    } else {
+    	amount = Double.parseDouble(rawwithdraw); //converting user input from text to numbers
+    }
+    
+    if(amount <1) { //check allowed transaction withdrawal amount 
+		  
+	      System.out.println("Withdrawal amount is less than the Minimum allowed amount of Ksh 1.");
+    	   	} 
+			   else if(amount <= 20000) { //check allowed transaction withdrawal amount
+		  if (maxwithdraw >= amount) {
+			  if (withdrawfrequency <=2) {
+	      balance -= amount;   // update balance
+	      withdrawn += amount;
+	   maxwithdraw -= amount;
+	      withdrawfrequency++;
+   	           	   	} else { //check daily withdrawal amount
+			  
+	   	         System.out.println("Daily Withdrawal Frequency Exceeded ");
+	                }
+ 	            	   	    	}else {
+ 	            	   	  System.out.println("Daily Withdrawal Amount Exceeded ");
+ 	            	   	    	}
+				    				  
+	   			      	  } else { //check allowed transaction withdrawal amount
+	          	   System.out.println("Kshs " + amount + " Exceeds the allowed withdrawal limit per transaction");
+	          	       	   	    	}
+            return balance;
+}
+    
 }
